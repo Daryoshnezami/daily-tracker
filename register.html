@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Daily Tracker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #0093E9;
+      --secondary-color: #80D0C7;
+      --text-color: #333;
+      --error-color: #dc3545;
+      --success-color: #28a745;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--text-color);
+      padding: 2rem 0;
+    }
+
+    .registration-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px var(--shadow-color);
+      width: 90%;
+      max-width: 600px;
+      backdrop-filter: blur(10px);
+      animation: slideIn 0.5s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .registration-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .registration-header i {
+      font-size: 3rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      color: var(--primary-color);
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .welcome-text {
+      color: #666;
+      font-size: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .form-group input:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 147, 233, 0.1);
+    }
+
+    .form-group i {
+      position: absolute;
+      right: 16px;
+      top: 38px;
+      color: #999;
+    }
+
+    .password-requirements {
+      background: #f8f9fa;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .password-requirements p {
+      color: #666;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .password-requirements ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .password-requirements li {
+      margin: 0.3rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .password-requirements li i {
+      position: static;
+      font-size: 0.9rem;
+    }
+
+    .activities-section {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 2px solid #eee;
+    }
+
+    .activities-section h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .suggested-activities {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin: 1rem 0;
+    }
+
+    .suggested-activity {
+      background: #f8f9fa;
+      padding: 0.8rem 1.2rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .suggested-activity:hover {
+      background: #e9ecef;
+      border-color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+
+    .activity-list {
+      margin: 1.5rem 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .activity-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: #f8f9fa;
+      margin-bottom: 0.8rem;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .activity-item:hover {
+      background: #e9ecef;
+    }
+
+    .activity-item button {
+      padding: 6px 12px;
+      background: var(--error-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .activity-item button:hover {
+      background: #c82333;
+    }
+
+    .add-activity-form {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .add-activity-form input {
+      flex: 1;
+    }
+
+    .add-activity-form button {
+      padding: 12px 20px;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .add-activity-form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px var(--shadow-color);
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      margin: 1.5rem 0;
+    }
+
+    button[type="submit"]:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px var(--shadow-color);
+    }
+
+    .message {
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      text-align: center;
+      display: none;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .error-message {
+      background: #fff5f5;
+      color: var(--error-color);
+      border: 1px solid #ffebee;
+    }
+
+    .success-message {
+      background: #f0fff4;
+      color: var(--success-color);
+      border: 1px solid #e6ffed;
+    }
+
+    .links {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .links a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .links a:hover {
+      color: var(--secondary-color);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .registration-container {
+        padding: 2rem;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .add-activity-form {
+        flex-direction: column;
+      }
+
+      .add-activity-form button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="registration-container">
+    <div class="registration-header">
+      <i class="fas fa-user-plus"></i>
+      <h1>Create Account</h1>
+      <p class="welcome-text">Join our family tracker to monitor your daily activities</p>
+    </div>
+
+    <form id="registration-form">
+      <div class="form-group">
+        <label for="username">Your Name</label>
+        <input type="text" id="username" placeholder="Enter your name" required>
+        <i class="fas fa-user"></i>
+      </div>
+      <div class="form-group">
+        <label for="password">Your Passcode</label>
+        <input type="password" id="password" placeholder="Create your passcode" required>
+        <i class="fas fa-lock"></i>
+        <div class="password-requirements">
+          <p>Passcode must contain:</p>
+          <ul>
+            <li id="length"><i class="fas fa-circle"></i> At least 8 characters</li>
+            <li id="uppercase"><i class="fas fa-circle"></i> One uppercase letter</li>
+            <li id="lowercase"><i class="fas fa-circle"></i> One lowercase letter</li>
+            <li id="number"><i class="fas fa-circle"></i> One number</li>
+            <li id="special"><i class="fas fa-circle"></i> One special character</li>
+          </ul>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="confirm-password">Confirm Passcode</label>
+        <input type="password" id="confirm-password" placeholder="Enter your passcode again" required>
+        <i class="fas fa-lock"></i>
+      </div>
+
+      <div class="activities-section">
+        <h3>Set Up Your Activities</h3>
+        <p>Add the activities you want to track daily:</p>
+
+        <div class="suggested-activities">
+          <div class="suggested-activity" onclick="addSuggestedActivity('Exercise', '30 mins')">
+            <i class="fas fa-running"></i> Exercise (30 mins)
+          </div>
+          <div class="suggested-activity" onclick="addSuggestedActivity('Read', '20 mins')">
+            <i class="fas fa-book"></i> Read (20 mins)
+          </div>
+          <div class="suggested-activity" onclick="addSuggestedActivity('Study', '45 mins')">
+            <i class="fas fa-graduation-cap"></i> Study (45 mins)
+          </div>
+        </div>
+
+        <div class="activity-list" id="activity-list">
+          <!-- Activities will be added here -->
+        </div>
+
+        <div class="add-activity-form">
+          <input type="text" id="activity-name" placeholder="Activity name (e.g., Exercise)">
+          <input type="text" id="activity-time" placeholder="Time (e.g., 30 mins)">
+          <button type="button" onclick="addActivity()">
+            <i class="fas fa-plus"></i> Add Activity
+          </button>
+        </div>
+      </div>
+
+      <div id="message" class="message"></div>
+      <button type="submit">
+        <i class="fas fa-user-plus"></i> Create Account
+      </button>
+
+      <div class="links">
+        <a href="login.html">
+          <i class="fas fa-sign-in-alt"></i> Already have an account? Login here
+        </a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Store activities in this array
+    let activities = [];
+
+    // Add activity from form
+    function addActivity() {
+      const name = document.getElementById('activity-name').value.trim();
+      const time = document.getElementById('activity-time').value.trim();
+
+      if (!name || !time) {
+        showMessage('Please enter both activity name and time', 'error');
+        return;
+      }
+
+      // Check if activity already exists
+      if (activities.some(a => a.name.toLowerCase() === name.toLowerCase())) {
+        showMessage('This activity already exists!', 'error');
+        return;
+      }
+
+      activities.push({ name, time });
+      updateActivityList();
+
+      // Clear inputs
+      document.getElementById('activity-name').value = '';
+      document.getElementById('activity-time').value = '';
+    }
+
+    // Add suggested activity
+    function addSuggestedActivity(name, time) {
+      document.getElementById('activity-name').value = name;
+      document.getElementById('activity-time').value = time;
+      addActivity();
+    }
+
+    // Remove activity
+    function removeActivity(index) {
+      activities.splice(index, 1);
+      updateActivityList();
+    }
+
+    // Update the activity list display
+    function updateActivityList() {
+      const activityList = document.getElementById('activity-list');
+      activityList.innerHTML = activities.map((activity, index) => `
+        <div class="activity-item">
+          <span>${activity.name} (${activity.time})</span>
+          <button type="button" onclick="removeActivity(${index})">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // Show message to user
+    function showMessage(text, type) {
+      const messageDiv = document.getElementById('message');
+      messageDiv.textContent = text;
+      messageDiv.className = `message ${type}-message`;
+      messageDiv.style.display = 'block';
+
+      // Hide message after 3 seconds
+      setTimeout(() => {
+        messageDiv.style.display = 'none';
+      }, 3000);
+    }
+
+    // Validate password
+    function validatePassword(password) {
+      const hasMinLength = password.length >= 8;
+      const hasUpperCase = /[A-Z]/.test(password);
+      const hasLowerCase = /[a-z]/.test(password);
+      const hasNumber = /[0-9]/.test(password);
+      const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+      return {
+        valid: hasMinLength && hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar,
+        requirements: {
+          length: hasMinLength,
+          uppercase: hasUpperCase,
+          lowercase: hasLowerCase,
+          number: hasNumber,
+          special: hasSpecialChar
+        }
+      };
+    }
+
+    // Handle form submission
+    document.getElementById('registration-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      // Validate password
+      if (password !== confirmPassword) {
+        showMessage('Passwords do not match', 'error');
+        return;
+      }
+
+      const passwordValidation = validatePassword(password);
+      if (!passwordValidation.valid) {
+        showMessage('Password does not meet requirements', 'error');
+        return;
+      }
+
+      // Check if we have at least 3 activities
+      if (activities.length < 3) {
+        showMessage('Please add at least 3 activities', 'error');
+        return;
+      }
+
+      // Get existing users
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+
+      // Check if username already exists
+      if (users.some(user => user.name === username)) {
+        showMessage('Username already exists', 'error');
+        return;
+      }
+
+      // Add new user
+      users.push({
+        name: username,
+        password: password
+      });
+
+      // Save user data
+      localStorage.setItem('users', JSON.stringify(users));
+      localStorage.setItem(`activities_${username}`, JSON.stringify(activities));
+      localStorage.setItem(`completed_${username}`, JSON.stringify({}));
+
+      // Show success message
+      showMessage('Registration successful! Redirecting to login...', 'success');
+
+      // Redirect to login after 1.5 seconds
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 1500);
+    });
+
+    // Update password requirements in real-time
+    document.getElementById('password').addEventListener('input', function (e) {
+      const password = e.target.value;
+      const validation = validatePassword(password);
+
+      // Update requirement indicators
+      Object.keys(validation.requirements).forEach(req => {
+        const element = document.getElementById(req);
+        const icon = element.querySelector('i');
+        if (validation.requirements[req]) {
+          element.style.color = 'var(--success-color)';
+          icon.className = 'fas fa-check-circle';
+        } else {
+          element.style.color = '#666';
+          icon.className = 'fas fa-circle';
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
